@@ -45,7 +45,7 @@ Add the following environment variables to your shell startup file:
 	- ``JIRA_SERVER`` the JIRA api for your organization
 	- ``JIRA_USER`` your JIRA user id
 	- ``JIRA_PASSWORD`` your JIRA password
-	- ``MY_ISSUES`` the JIRA query to retrieve issues of interest, e.g. ``assignee = currentUser() AND status NOT IN  (DONE, RESOLVED, CLOSED) ORDER BY priority DESC``
+	- ``MY_ISSUES`` the JIRA query to retrieve issues of interest
 
 My .bash_profile configuration 
 

@@ -55,7 +55,7 @@ My .bash_profile configuration
 	export JIRA_SERVER="https://evrythng.atlassian.net"
 	export JIRA_PASSWORD='mypassword'
 	export MY_ISSUES='assignee = currentUser() AND status NOT IN  (DONE, RESOLVED, CLOSED) ORDER BY priority DESC'
-	alias giraffesay='clear && python3 /Users/joelvogt/Development/PycharmProjects/set/docker_images/giraffesay/giraffesay.py'
+	alias giraffesay='clear && python3 giraffesay.py'
 
 Usage
 ~~~~~

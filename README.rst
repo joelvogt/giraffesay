@@ -2,7 +2,7 @@
 giraffesay, your friendly JIRA tracker
 =======================================
 
-giraffesay is a simple JIRA task tracker, which will display a list of JIRA tickets and a giraffe (**jira**  ffe) in your terminal::
+giraffesay is a simple JIRA task tracker, which will display a list of JIRA tickets and a giraffe (**jira**  ffe) from your terminal::
 
 	cerfeta:~ joelvogt$ giraffesay
 

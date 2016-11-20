@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+__author__ = "Joël Vogt"
+__copyright__ = "Copyright 2016"
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Joël Vogt"
+__email__ = "joel@evrythng.com"
 import os
 
 from jira import JIRA

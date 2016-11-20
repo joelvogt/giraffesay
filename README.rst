@@ -55,7 +55,7 @@ My .bash_profile configuration
 	export JIRA_SERVER="https://evrythng.atlassian.net"
 	export JIRA_PASSWORD='mypassword'
 	export MY_ISSUES='assignee = currentUser() AND status NOT IN  (DONE, RESOLVED, CLOSED) ORDER BY priority DESC'
-	alias giraffesay='clear && python3 giraffesay.py'
+	alias giraffesay='python3 giraffesay.py'
 
 Usage
 ~~~~~
@@ -65,4 +65,4 @@ View your JIRA tickets from your terminal giraffesay from your terminal ``pythno
 Credits
 ~~~~~~~
 
-I'd like to thank the artist who creates this giraffe and shared it on http://ascii.co.uk/art/giraffe
+I'd like to thank the artist who created this giraffe and shared it on http://ascii.co.uk/art/giraffe

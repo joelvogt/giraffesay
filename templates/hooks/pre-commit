@@ -1,0 +1,124 @@
+#!/usr/bin/env node
+const fs = require('fs'),
+    exec = require('child_process').exec,
+    path = require('path');
+const VALID_API_KEY_CHAR = {
+    'A': true,
+    'B': true,
+    'C': true,
+    'D': true,
+    'E': true,
+    'F': true,
+    'G': true,
+    'H': true,
+    'I': true,
+    'J': true,
+    'K': true,
+    'L': true,
+    'M': true,
+    'N': true,
+    'O': true,
+    'P': true,
+    'Q': true,
+    'R': true,
+    'S': true,
+    'T': true,
+    'U': true,
+    'V': true,
+    'W': true,
+    'X': true,
+    'Y': true,
+    'Z': true,
+    'a': true,
+    'b': true,
+    'c': true,
+    'd': true,
+    'e': true,
+    'f': true,
+    'g': true,
+    'h': true,
+    'i': true,
+    'j': true,
+    'k': true,
+    'l': true,
+    'm': true,
+    'n': true,
+    'o': true,
+    'p': true,
+    'q': true,
+    'r': true,
+    's': true,
+    't': true,
+    'u': true,
+    'v': true,
+    'w': true,
+    'x': true,
+    'y': true,
+    'z': true,
+    '0': true,
+    '1': true,
+    '2': true,
+    '3': true,
+    '4': true,
+    '5': true,
+    '6': true,
+    '7': true,
+    '8': true,
+    '9': true
+};
+const CMD_CHANGED = 'git diff --cached --name-only --diff-filter=ACM';
+const CMD_REPO_ROOT = 'git rev-parse --show-toplevel';
+
+function scanLineForKeys(source, i) {
+    let keys = [];
+    for (; i + 80 <= source.length; i++) {//@SafeKey ignores the api key on the following line
+        if (source[i] === '@' && i + 8 <= source.length && (source.substring(i, i + 7) === '@SafeKey')) {
+            let res = scanLineForKeys(source, i + 8);
+            res.push([i, keys]);
+            return res.slice(1);
+        } else if (source[i] === "\n") {
+            let res = scanLineForKeys(source, i + 1);
+            res.push([i, keys]);
+            return res;
+        } else if (source[i] in VALID_API_KEY_CHAR && source.substring(i, i + 80).match('([A-z0-9]{80})')) {
+            keys.push(source.substring(i, i + 80));
+            i += 79;
+        }
+    }
+    return [source.length, keys];
+}
+exec(CMD_REPO_ROOT, function (errRoot, stdinRoot, stderrRoot) {
+    if (!errRoot) {
+        let repoRoot = stdinRoot.trim();
+
+        exec(CMD_CHANGED, function (err, stdin, stderr) {
+            if (!err) {
+                let aboardCommit = false;
+                stdin.split('\n').forEach(function (file) {
+                    let f = path.resolve(repoRoot, file.trim());
+                    if (!fs.lstatSync(f).isDirectory()) {
+                        fs.createReadStream(path.resolve(repoRoot, file.trim())).on('data', function (data) {
+                            if (scanLineForKeys(data.toString(), 0).map(function (x) {
+                                    return (x[0] === undefined) ? 0 : x[1].length;
+                                }).reduce(function (x, v) {
+                                    return v + x;
+                                }) > 0) {
+                                aboardCommit = true;
+                                console.error(`Key found found in ${f}`);
+                            }
+                        });
+                    }
+                });
+                if (aboardCommit) {
+                    process.exit(1);
+                }
+            } else {
+                console.error('Could not execute ' + CMD_CHANGED);
+                process.exit(1);
+            }
+        });
+    } else {
+        console.error('Could not execute ' + CMD_REPO_ROOT);
+        process.exit(1);
+    }
+});

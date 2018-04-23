@@ -35,7 +35,7 @@ giraffesay is a simple JIRA task tracker, which will display a list of JIRA tick
 Installation
 ~~~~~~~~~~~~
 
-giraffesay requires Python 3. Install the dependencies using ``pip3 install jira tabulate``
+giraffesay requires Python 3. Install dependencies: ``pip3 install jira tabulate``
 
 Configuration
 ~~~~~~~~~~~~~

@@ -60,7 +60,7 @@ My .bash_profile configuration
 Usage
 ~~~~~
 
-View your JIRA tickets from your terminal giraffesay from your terminal ``pythnon3 giraffesay.py``
+View your JIRA tickets from your terminal giraffesay from your terminal ``python3 giraffesay.py``
 
 Credits
 ~~~~~~~
